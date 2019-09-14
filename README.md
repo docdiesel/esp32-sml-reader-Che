@@ -11,7 +11,7 @@ This code is released under the MIT license. See license.txt.
 All configuration is done in config.h. Define user and password for wlan
 here, as well as target databases, baud rate of your sensor etc.
 
-## sensor
+## Sensor
 The sensor is a simple IR photo transistor that's hooked up to the ESP32,
 using an 1K pullup and an 10K pulldown resistor to give a decent
 signal. An image showing the circuit is added to the projekt as
@@ -22,5 +22,24 @@ Basically, it's a 1:10 voltage divider, keeping the level high (1) by default.
 Once the IR photo transistor gets triggered, it shortcuts the pulldown
 resistor and thus pulls the level to low (0).
 
+## Power saving
+I've got to power my ESP32 with a power bank. To save some power, a) it's going
+to deep sleep for 57s and then starts reading from the smartmeter again, and
+b) it powers the sensor over GPIO4 so the sensor is switched off during
+deep sleep.
 
+## Values
+You may define which fields/values you want to read from the smartmeter. I'm
+reading
+- 1.8.0 : energy in kWh from grid so far
+- 2.8.0 : energy in kWh to grid so far, from PV unit
+- 16.7.0 : current power in W passing the smartmeter
+You may want to read others. Find a list of OBIS identifiers at https://de.wikipedia.org/wiki/OBIS-Kennzahlen
+.
+
+## Targets
+The first version supports three backends as target:
+- Influx tineseries DB, e.g. at corlysis.com or at own site. You may use Grafana to visualize the data later.
+- Volkszähler.org instance, presumably on a raspberry at home. Find more info at https://www.volkszaehler.org/
+- Plain web server, in my case just to have the values in the web servers error log, for debugging purposes. Of course you may use this with an own PHP or Python script to write the data to a database.
 
