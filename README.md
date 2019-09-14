@@ -22,7 +22,8 @@ All configuration is done in config.h. Define user and password for wlan
 here, as well as target databases, baud rate of your sensor etc.
 
 ## Sensor
-The sensor is a simple IR photo transistor that's hooked up to the ESP32,
+The sensor is a simple IR photo transistor (TEKT5400S-ASZ or similar)
+that's hooked up to the ESP32,
 using an 1K pullup and an 10K pulldown resistor to give a decent
 signal. An image showing the circuit is added to the projekt as
 "wiring.jpg". (The sensor is based on a simple IR reader like described
