@@ -1,8 +1,18 @@
 
 # esp32-sml-reader-Che
 
+## TL;DR
 Code for letting an ESP32 read sml data from a smart meter via its IR
 interface.
+
+## About
+I wrote this little hack because I didn't want to wire up my raspberry down
+the cellar and to the smartmeter - besides, there was a smartmeter but no
+power supply, so I had to use a powerbank which the raspi would drain within
+short time.
+
+Thus now an ESP32 is reading the data and writes it to an InfluxDB (Cloud) and to a Volkszaehler instance
+(raspberry at home).
 
 ## License
 This code is released under the MIT license. See license.txt.
@@ -21,6 +31,13 @@ at https://wiki.volkszaehler.org/howto/simpler_ir_leser .)
 Basically, it's a 1:10 voltage divider, keeping the level high (1) by default.
 Once the IR photo transistor gets triggered, it shortcuts the pulldown
 resistor and thus pulls the level to low (0).
+
+## Serial interface
+The data is read using one of the three hardware serial interfaces the ESP32
+has. Initially I tried an ESP8266 with software serial interface on some
+freely configurable GPIO, but I experienced too much data loss on that, so I
+decided to go for ESP32 and hardware serial, even if the ESP8266 has the
+better sleep modes.
 
 ## Power saving
 I've got to power my ESP32 with a power bank. To save some power, a) it's going
